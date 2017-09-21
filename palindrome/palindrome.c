@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "palindrome.h"
 
@@ -32,6 +33,7 @@ char* palindrome(char* str) {
     }
     ++i;
   }
+  free(rev);
 
   if (result) {
     answer = (char*) calloc(4, sizeof(char));
@@ -46,5 +48,6 @@ char* palindrome(char* str) {
     answer[2] = '\0';
   }
 
+  
   return answer;
 }
