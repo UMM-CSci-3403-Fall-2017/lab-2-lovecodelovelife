@@ -2,26 +2,43 @@
 
 #include "disemvowel.h"
 
+//Changed the test cases to free up the used memmory from disemvowel.c by
+//creating a holder variable to disemvowel the string, which allows
+//us to free it after the ASSERT_STREQ call
+
 TEST(Disemvowel, HandleEmptyString) {
-  ASSERT_STREQ("", disemvowel((char*) ""));
+  char* hold;
+  hold=disemvowel((char*) "");
+  ASSERT_STREQ("", hold);
+  free(hold);
 }
 
 TEST(Disemvowel, HandleNoVowels) {
-  ASSERT_STREQ("pqrst", disemvowel((char*) "pqrst"));
+  char* hold;
+  hold=disemvowel((char*) "pqrst");
+  ASSERT_STREQ("pqrst", hold);
+free(hold);
 }
 
 TEST(Disemvowel, HandleOnlyVowels) {
-  ASSERT_STREQ("", disemvowel((char*) "aeiouAEIOUOIEAuoiea"));
+   char* hold;
+  hold=disemvowel((char*) "aeiouAEIOUOIEAuoiea");
+ASSERT_STREQ("", hold);
+free(hold);
 }
 
 TEST(Disemvowel, HandleMorrisMinnesota) {
-  ASSERT_STREQ("Mrrs, Mnnst",
-		      disemvowel((char*) "Morris, Minnesota"));
+   char* hold;
+   hold=disemvowel((char*) "Morris, Minnesota");
+ASSERT_STREQ("Mrrs, Mnnst", hold);
+free(hold);
 }
 
 TEST(Disemvowel, HandlePunctuation) {
-  ASSERT_STREQ("n (nxplnd) lphnt!", 
-		      disemvowel((char*) "An (Unexplained) Elephant!"));
+   char* hold;
+  hold=disemvowel((char*) "An (Unexplained) Elephant!");
+ASSERT_STREQ("n (nxplnd) lphnt!", hold);
+free(hold);
 }
 
 TEST(Disemvowel, HandleLongString) {
@@ -38,9 +55,12 @@ TEST(Disemvowel, HandleLongString) {
     str[i] = 'a';
   }
   str[size-1] = '\0';
-  
-  ASSERT_STREQ("xyz", disemvowel(str));
 
+  char* hold;
+    hold = disemvowel(str);
+  ASSERT_STREQ("xyz", hold);
+  
+  free(hold);
   free(str);
 }
 
